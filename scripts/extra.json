@@ -70,6 +70,16 @@
         "matches": "https://*.atlassian.net/*",
         "path": "misc/jira-current-estimate.js",
         "enabled": true
+      },
+      {
+        "id": "mailgun-quickerview",
+        "type": "script",
+        "version": "0.1",
+        "name": "Mailgun Quickerview",
+        "description": "Zo snel is die Quickview nie echt nie.",
+        "matches": "https://app.mailgun.com/app/sending/domains/*",
+        "path": "misc/mailgun-quickerview.js",
+        "enabled": true
       }
     ]
   }
