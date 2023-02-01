@@ -22,9 +22,12 @@ import(chrome.runtime.getURL("/lib/monkey-script.js")).then((Monkey) => {
     if (ev.type === "input" && now - lastTs < 2500) return;
     lastTs = now;
     const target = ev.target;
-    const form = target.closest("form");
+    const form = target.closest("form,.slds-form");
+    console.log(form);
     if (!form) return;
-    const formId = [...document.querySelectorAll("form")].indexOf(form);
+    const formId = [...document.querySelectorAll("form,.slds-form")].indexOf(
+      form
+    );
     const url = window.location.href.split(/[?#]/)[0];
 
     const key = `${formId};${url}`;
@@ -33,7 +36,20 @@ import(chrome.runtime.getURL("/lib/monkey-script.js")).then((Monkey) => {
     }
     const ts = timestamps[key];
 
-    save(url, formId, ts, [...new FormData(form).entries()]);
+    const formEntries =
+      form instanceof HTMLFormElement
+        ? [...new FormData(form).entries()]
+        : [...form.querySelectorAll("input,textarea,select")]
+            .filter(
+              (input) =>
+                !["checkbox", "radio"].includes(input.type) || input.checked
+            )
+            .map((input) => [
+              input.id,
+              input.contentEditable ? input.innerHTML : input.value,
+            ]);
+    console.log(url, formId, ts, formEntries);
+    save(url, formId, ts, formEntries);
   };
   document.addEventListener("input", logForm);
   document.addEventListener("change", logForm);

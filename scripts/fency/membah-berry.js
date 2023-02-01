@@ -48,10 +48,15 @@ import(chrome.runtime.getURL("/lib/monkey-script.js")).then((Monkey) => {
   // Berry click
   let berryEntries = null;
   const setFormData = (form, data) => {
-    for (const input of form.elements) {
+    const elements =
+      form instanceof HTMLFormElement
+        ? form.elements
+        : [...form.querySelectorAll("input,textarea,select")];
+    for (const input of elements) {
       const values = data
-        .filter(([key]) => key === input.name)
+        .filter(([key]) => key === input.name || key === input.id)
         .map(([key, value]) => value);
+      console.log(input, values);
 
       switch (input.type) {
         case "hidden":
@@ -90,7 +95,7 @@ import(chrome.runtime.getURL("/lib/monkey-script.js")).then((Monkey) => {
   };
   berry.addEventListener("click", (ev) => {
     ev.preventDefault();
-    const form = ev.target.closest("form");
+    const form = ev.target.closest("form,.cxsrecForm");
     for (const entry of berryEntries.reverse()) {
       if (
         confirm(
@@ -112,9 +117,11 @@ import(chrome.runtime.getURL("/lib/monkey-script.js")).then((Monkey) => {
     "focus",
     (ev) => {
       const target = ev.target;
-      const form = target.closest("form");
+      const form = target.closest("form,.slds-form");
       if (!form || target === berry) return;
-      const formId = [...document.querySelectorAll("form")].indexOf(form);
+      const formId = [...document.querySelectorAll("form,.slds-form")].indexOf(
+        form
+      );
       const url = window.location.href.split(/[?#]/)[0];
       load(url, formId).then((entries) => {
         entries = entries.filter((entry) => entry.ts < ts);
