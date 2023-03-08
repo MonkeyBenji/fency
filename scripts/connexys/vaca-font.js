@@ -60,21 +60,25 @@ import(chrome.runtime.getURL("/lib/monkey-script.js")).then(async (Monkey) => {
         });
 
       // Remove fonts
-      editor
-        .querySelectorAll(
-          '[style*="font-family"],[style*="font-size"],[style*="background-color"]'
+      const spans = editor.querySelectorAll(
+        '[style*="font-family"],[style*="font-size"],[style*="background-color"]'
+      );
+      const overusedFontSize = [...spans].reduce((map, span) => {
+        map[span.style.fontSize] =
+          (map[span.style.fontSize] ?? 0) + span.textContent.length;
+      }, {});
+      // TODO order by amount DESC and take most frequently used thingy
+      spans.forEach((span) => {
+        span.style.fontFamily = null;
+        if (span.style.backgroundColor) span.style.backgroundColor = null;
+        if (
+          span.style.fontSize === "14px" ||
+          span.style.fontSize === "12px" ||
+          span.style.fontSize === "10pt" ||
+          span.style.fontSize === "11pt"
         )
-        .forEach((span) => {
-          span.style.fontFamily = null;
-          if (span.style.backgroundColor) span.style.backgroundColor = null;
-          if (
-            span.style.fontSize === "14px" ||
-            span.style.fontSize === "12px" ||
-            span.style.fontSize === "10pt" ||
-            span.style.fontSize === "11pt"
-          )
-            span.style.fontSize = null;
-        });
+          span.style.fontSize = null;
+      });
     };
     document.body.addEventListener("input", (ev) =>
       setTimeout(() => fontClear(ev), 123)
