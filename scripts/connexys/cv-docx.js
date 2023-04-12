@@ -104,8 +104,8 @@ import(chrome.runtime.getURL("/lib/monkey-script.js")).then(async (Monkey) => {
         },
         { education: [{}], work: [{}] }
       );
-    if (JSON.stringify(mapping.education) === "[{}]") mapping.education = [];
-    if (JSON.stringify(mapping.work) === "[{}]") mapping.work = [];
+    mapping.education = mapping.education.slice(0, -1);
+    mapping.work = mapping.work.slice(0, -1);
     return mapping;
   };
 
