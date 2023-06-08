@@ -36,6 +36,17 @@
         "allFrames": true
       },
       {
+        "id": "membah-fields",
+        "type": "script",
+        "version": "0.1",
+        "name": "Membah Fields",
+        "description": "Remember all filled in fields, whether they are in a form or not",
+        "matches": "<all_urls>",
+        "path": "fency/membah-fields.js",
+        "enabled": true,
+        "allFrames": true
+      },
+      {
         "id": "textarea-limit",
         "type": "script",
         "version": "0.1",
