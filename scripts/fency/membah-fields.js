@@ -163,12 +163,12 @@ import(chrome.runtime.getURL("/lib/monkey-script.js")).then((Monkey) => {
         textContent: url,
         target: "_blank",
         style:
-          "display:block; width: 100%; text-wrap: nowrap; overflow: hidden; font-size: 0.8em",
+          "display:block; width: 100%; white-space: nowrap; overflow: hidden; font-size: 0.8em",
       });
       const spanLabel = Object.assign(document.createElement("span"), {
         textContent: label,
         style:
-          "float: left; width: 50%; text-wrap: nowrap; overflow: hidden; font-size: 0.8em;",
+          "float: left; width: 50%; white-space: nowrap; overflow: hidden; font-size: 0.8em;",
       });
       const time = Object.assign(document.createElement("span"), {
         textContent: formatter.format(ts),
