@@ -12,14 +12,7 @@
 
   "web_accessible_resources": ["lib/*", "icons/*"],
 
-  "permissions": [
-    "<all_urls>",
-    "webNavigation",
-    "storage",
-    "debugger",
-    "tabs",
-    "contextMenus"
-  ],
+  "permissions": ["<all_urls>", "webNavigation", "storage", "debugger", "tabs", "contextMenus", "unlimitedStorage"],
 
   "browser_action": {
     "default_icon": {
@@ -33,10 +26,6 @@
   },
 
   "background": {
-    "scripts": [
-      "browser-polyfill.js",
-      "content-scripts-register-polyfill.js",
-      "background.js"
-    ]
+    "scripts": ["browser-polyfill.js", "content-scripts-register-polyfill.js", "background.js"]
   }
 }
