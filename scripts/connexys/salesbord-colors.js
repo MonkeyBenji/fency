@@ -90,12 +90,27 @@ import(chrome.runtime.getURL("/lib/monkey-script.js")).then(async (Monkey) => {
       let employeeLastUpdateMapping = {};
       let scrollTimer = null;
 
+      const RED = `rgba(255, 0, 0, 0.2)`;
       const applySalesbordColors = () => {
         if (isNotOnSalesbordPage()) return;
         const supDoc = document.querySelector(".active iframe").contentDocument;
+        let isCouch = false;
         supDoc.querySelectorAll("tr.data-grid-table-row").forEach((tr) => {
           const rowId = tr.querySelector("td")?.dataset?.rowIndex;
           if (typeof rowId === "undefined") return;
+
+          const firstChild = tr.firstElementChild;
+          if (firstChild.tagName === "TH" && firstChild.nextElementSibling.tagName === "TH") {
+            isCouch = firstChild.textContent.includes("Bank");
+          }
+          if (isCouch) {
+            tr.querySelectorAll("td").forEach((td) => {
+              if (!td.style.backgroundColor) {
+                td.style.backgroundColor = RED;
+              }
+            });
+          }
+
           const updateDate = employeeLastUpdateMapping[rowId];
           let daysAgo = Math.floor((new Date() - new Date(updateDate)) / (1000 * 60 * 60 * 24));
           if (new Date().getDay() === 1 && daysAgo <= 3) {
@@ -106,6 +121,9 @@ import(chrome.runtime.getURL("/lib/monkey-script.js")).then(async (Monkey) => {
           tr.querySelectorAll("td").forEach((td) => {
             if (!td.style.backgroundColor) {
               td.style.backgroundColor = `rgba(154, 196, 69, ${opacity})`;
+            } else if (td.style.backgroundColor === RED) {
+              const redOpacity = (parseFloat(opacity) + 0.3).toFixed(2);
+              td.style.backgroundColor = `rgba(255, 0, 0, ${redOpacity})`;
             }
           });
         });
