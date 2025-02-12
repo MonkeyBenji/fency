@@ -17,6 +17,9 @@ import(chrome.runtime.getURL("/lib/monkey-script.js")).then(async (Monkey) => {
         "00OW7000001Xi6YMAS",
         "00OW7000001XisvMAC",
         "00OW700000364X4MAI",
+        "00OW7000008hvEXMAY",
+        "00OW7000008hvjBMAQ",
+        "00OW7000008hveLMAQ",
       ].includes(window.location.pathname.split("/")[4]);
     if (isNotOnSalesbordPage()) return;
     Monkey.js(() => {
@@ -37,6 +40,9 @@ import(chrome.runtime.getURL("/lib/monkey-script.js")).then(async (Monkey) => {
           "00OW7000001Xi6YMAS",
           "00OW7000001XisvMAC",
           "00OW700000364X4MAI",
+          "00OW7000008hvEXMAY",
+          "00OW7000008hvjBMAQ",
+          "00OW7000008hveLMAQ",
         ].includes(window.location.pathname.split("/")[4]);
       const GREEN_DAYS = 2;
       !(function (send) {
