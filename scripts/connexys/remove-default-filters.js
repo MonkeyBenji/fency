@@ -56,7 +56,7 @@ import(chrome.runtime.getURL("/lib/monkey-script.js")).then(async (Monkey) => {
           (await Monkey.waitForSelector(".filter-widget .slds-picklist button")).click();
           (await Monkey.waitForSelector(".filter-widget .slds-dropdown__item:nth-of-type(2) a")).click();
           (await Monkey.waitForSelector(".multi-picklist-container .multi-picklist-option:nth-of-type(4)"))
-            .querySelector("a,button")
+            .querySelector(".inner-list-option-item,a,button")
             .click();
           document.querySelector(".filter-widget button.filter-apply").click();
           await Monkey.waitForTrue(filterApplyBeGone);
@@ -74,7 +74,7 @@ import(chrome.runtime.getURL("/lib/monkey-script.js")).then(async (Monkey) => {
             (await Monkey.waitForSelector(".filter-widget .slds-picklist button")).click();
             (await Monkey.waitForSelector(".filter-widget .slds-dropdown__item:nth-of-type(2) a")).click();
             (await Monkey.waitForSelector(".multi-picklist-container .multi-picklist-option:nth-of-type(7)"))
-              .querySelector("a,button")
+              .querySelector(".inner-list-option-item,a,button")
               .click();
             document.querySelector(".filter-widget button.filter-apply").click();
             await Monkey.waitForTrue(filterApplyBeGone);
