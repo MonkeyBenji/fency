@@ -20,6 +20,7 @@ import(chrome.runtime.getURL("/lib/monkey-script.js")).then(async (Monkey) => {
         "00OW7000008hvEXMAY",
         "00OW7000008hvjBMAQ",
         "00OW7000008hveLMAQ",
+        "00OW7000001Dvr7MAC",
       ].includes(window.location.pathname.split("/")[4]);
     if (isNotOnSalesbordPage()) return;
     Monkey.js(() => {
@@ -43,6 +44,7 @@ import(chrome.runtime.getURL("/lib/monkey-script.js")).then(async (Monkey) => {
           "00OW7000008hvEXMAY",
           "00OW7000008hvjBMAQ",
           "00OW7000008hveLMAQ",
+          "00OW7000001Dvr7MAC",
         ].includes(window.location.pathname.split("/")[4]);
       const GREEN_DAYS = 2;
       !(function (send) {
@@ -128,7 +130,7 @@ import(chrome.runtime.getURL("/lib/monkey-script.js")).then(async (Monkey) => {
             if (!td.style.backgroundColor) {
               td.style.backgroundColor = `rgba(154, 196, 69, ${opacity})`;
             } else if (td.style.backgroundColor === RED) {
-              const redOpacity = (parseFloat(opacity) + 0.3).toFixed(2);
+              const redOpacity = (parseFloat(opacity) * 0.5 + 0.25).toFixed(2);
               td.style.backgroundColor = `rgba(255, 0, 0, ${redOpacity})`;
             }
           });
